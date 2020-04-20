@@ -7,6 +7,8 @@
     <groupId>cometoak.et1910.boot</groupId>
     <artifactId>boot2-12-house</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
 
 
 </project>
