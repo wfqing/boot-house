@@ -18,3 +18,8 @@ mybatis:
   type-aliases-package: com.etoak.bean
 pagehelper:
   reasonable: true
+ ## 打印sql
+logging:
+  level:
+   com.etoak.mapper: DEBUG
+
