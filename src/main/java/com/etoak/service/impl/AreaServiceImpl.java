@@ -19,4 +19,6 @@ public class AreaServiceImpl implements AreaService {
     public List<Area> queryByPid(int pid) {
         return areaMapper.queryByPid(pid);
     }
+
+
 }

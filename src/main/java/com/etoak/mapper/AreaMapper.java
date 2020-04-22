@@ -11,5 +11,6 @@ import java.util.List;
 public interface AreaMapper {
     List<Area> queryByPid(@Param("pid") int pid);
 
-
+//根据id查询地区
+    Area queryById(Integer area);
 }

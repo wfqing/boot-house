@@ -49,7 +49,7 @@
             <div class="form-group">
                 <label for="rent_mode" class="col-sm-2 control-label">租赁方式</label>
                 <div class="col-sm-3 input-group">
-                    <select name="rent_mode" id="rent_mode" class="form-control">
+                    <select name="rentMode" id="rent_mode" class="form-control">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -69,7 +69,7 @@
             <div class="form-group">
                 <label for="house_type" class="col-sm-2 control-label">户型</label>
                 <div class="col-sm-3 input-group">
-                    <select name="house_type" id="house_type" class="form-control">
+                    <select name="houseType" id="house_type" class="form-control">
                         <option value="">--请选择--</option>
                     </select>
                 </div>
@@ -92,7 +92,7 @@
             <div class="form-group">
                 <label for="pic" class="col-sm-2 control-label">房屋照片</label>
                 <div class="col-sm-3 input-group">
-                    <input type="file" name="pic" id="pic" class="form-control">
+                    <input type="file" name="file" id="pic" class="form-control">
                 </div>
             </div>
 
@@ -197,6 +197,13 @@
                         //校验规则
                         rules: {
                             province: 'required',//对name属性为province的表单项进行校验
+                            area: 'required',
+                            rental: {
+                              required: true,
+                              positiveInt: true,
+                                max: 10000
+                            },
+
                             address: {
                                 required: true,//必填
                                 maxlength: 10,//最大10个字符
@@ -207,6 +214,12 @@
                         //校验失败后的消息
                         messages: {
                             province: '省为必选项',
+                            area: '必填项',
+                            rental: {
+                                required: '必填项',
+                                positiveInt: '必须是大于0 的整数',
+                                max: '最大10万',
+                            },
                             address: {
                                 required: '必填项',
                                 maxlength: '10个字符以内',
@@ -214,6 +227,13 @@
 
                         }
                     })
+
+                    //自定义校验规则  positiveInt随便起的名字
+                    $.validator.addMethod('positiveInt',function(value,element){
+                        let reg = /^\+?[1-9]\d*$/;//正则表达式
+                        return this.optional(element) || (reg.test(value));
+
+                    }, '必须是大于0的正整数')
                 }
 
             }

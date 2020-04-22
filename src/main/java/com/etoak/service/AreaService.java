@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface AreaService {
     List<Area> queryByPid(int pid);
+
 }
