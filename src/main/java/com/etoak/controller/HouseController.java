@@ -2,6 +2,8 @@ package com.etoak.controller;
 
 import com.etoak.bean.House;
 
+import com.etoak.bean.Page;
+import com.etoak.bean.houseVo;
 import com.etoak.service.HouseService;
 import com.etoak.utils.Validator;
 import lombok.extern.slf4j.Slf4j;
@@ -14,9 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 
 import org.springframework.validation.ValidationUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -31,6 +31,7 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/house")
 @Slf4j
+
 public class HouseController {
     //读取配置文件
     @Value("${upload.dir}")
@@ -77,5 +78,14 @@ log.info("house___________rentmode   >", house.getRentMode());
         houseService.addHouse(house);
 
         return "redirect:/house/toAdd";
+    }
+    @GetMapping(value = "/list", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public Page<houseVo> queryList(@RequestParam(required = false, defaultValue = "0") int pageNum,
+                                   @RequestParam(required = false, defaultValue = "3") int pageSize,
+                                   houseVo houseV) {
+
+        return houseService.queryList(pageNum, pageSize, houseV);
+
     }
 }

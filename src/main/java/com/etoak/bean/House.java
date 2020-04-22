@@ -38,7 +38,7 @@ public class House {
 
     private String pic;
 
-    private String piblishTime;
+    private String publishTime;
 
 
 }
