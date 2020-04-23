@@ -11,10 +11,14 @@ import com.etoak.service.HouseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wfqing on 2020/4/22.
@@ -40,7 +44,10 @@ public class HouseServiceImpl implements HouseService{
     }
 
     @Override
-    public Page<houseVo> queryList(int pageNum, int pageSize, houseVo houseV) {
+    public Page<houseVo> queryList(int pageNum, int pageSize, houseVo houseV, String[] rentalList) {
+        this.handlerRental(houseV, rentalList);
+
+
         PageHelper.startPage(pageNum, pageSize);
         List<houseVo> houseVoList = houseMapper.queryList(houseV);
         PageInfo<houseVo> pageInfo = new PageInfo<>();
@@ -49,5 +56,23 @@ public class HouseServiceImpl implements HouseService{
                 houseVoList,
                 pageInfo.getTotal(),
                 pageInfo.getPages());
+    }
+
+    private void handlerRental(houseVo houseV, String[] rentalList) {
+        if(ArrayUtils.isNotEmpty(rentalList)){
+            List<Map<String, Integer>> rentalMapList = new ArrayList<>();
+
+            for(String rental : rentalList) {
+                String[] rentalArray = rental.split("-");
+                HashMap<String, Integer> rentalMap = new HashMap<>();
+                rentalMap.put("start", Integer.valueOf(rentalArray[0]));
+                rentalMap.put("end", Integer.valueOf(rentalArray[1]));
+
+                rentalMapList.add(rentalMap);
+
+            }
+            houseV.setRentalMapList(rentalMapList);
+        }
+
     }
 }
