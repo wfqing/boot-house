@@ -109,7 +109,105 @@
         </table>
     <!--编辑房源-->
 
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">编辑</h4>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/house/update}"
+                          method="post"
+                          id="updateForm"
+                          class="form-horizontal" role="form">
 
+                        <!-- id隐藏域：用于更新房源 -->
+                        <input type="hidden" id="update_house_id" name="id">
+
+                        <!-- 隐藏域：将post请求转成put请求 -->
+                        <input type="hidden" name="_method" value="put">
+
+                        <!-- 1.省 -->
+                        <div class="form-group">
+                            <label for="update_province" class="col-sm-3 control-label">所在省</label>
+                            <div class="col-sm-5 input-group">
+                                <select id="update_province" name="province" class="form-control">
+                                    <option value="">--请选择--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- 2.市 -->
+                        <div class="form-group">
+                            <label for="update_city" class="col-sm-3 control-label">所在市</label>
+                            <div class="col-sm-5 input-group">
+                                <select id="update_city" name="city" class="form-control">
+                                    <option value="">--请选择--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- 3.区县 -->
+                        <div class="form-group">
+                            <label for="update_area" class="col-sm-3 control-label">所在区县</label>
+                            <div class="col-sm-5 input-group">
+                                <select id="update_area" name="area" class="form-control">
+                                    <option value="">--请选择--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- 4.租赁方式 -->
+                        <div class="form-group">
+                            <label for="update_rent_mode" class="col-sm-3 control-label">租赁方式</label>
+                            <div class="col-sm-5 input-group">
+                                <select id="update_rent_mode" name="rentMode" class="form-control">
+                                    <option value="">--请选择--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- 5.朝向 -->
+                        <div class="form-group">
+                            <label for="update_orientation" class="col-sm-3 control-label">朝向</label>
+                            <div class="col-sm-5 input-group">
+                                <select id="update_orientation" name="orientation" class="form-control">
+                                    <option value="">--请选择--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- 6.户型 -->
+                        <div class="form-group">
+                            <label for="update_house_type" class="col-sm-3 control-label">户型</label>
+                            <div class="col-sm-5 input-group">
+                                <select id="update_house_type" name="houseType" class="form-control">
+                                    <option value="">--请选择--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- 7. 租金 -->
+                        <div class="form-group">
+                            <label for="update_rental" class="col-sm-3 control-label">租金</label>
+                            <div class="col-sm-5 input-group">
+                                <input type="number" name="rental" id="update_rental" class="form-control">
+                            </div>
+                        </div>
+                        <!-- 8. 地址 -->
+                        <div class="form-group">
+                            <label for="update_address" class="col-sm-3 control-label">地址</label>
+                            <div class="col-sm-5 input-group">
+                                <input type="text" name="address" id="update_address" class="form-control">
+                            </div>
+                        </div>
+                        <!-- 9.关闭和更新按钮 -->
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-6">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button type="submit" class="btn btn-primary">更新</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
         <script th:src="@{/lib/js/jquery/jquery.min.js}" type="text/javascript"></script>
         <script th:src="@{/lib/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
         <script th:src="@{/lib/bootstrap-table/bootstrap-table.min.js}" type="text/javascript"></script>
@@ -153,14 +251,14 @@
                     $("#update_city").html("<option value=''>--请选择--</option>")
                     $("#update_area").html("<option value=''>--请选择--</option>")
                     if(this.value) {
-                        House.queryArea('city', this.value);
+                        House.queryArea('update_city', this.value);
                     }
 
                 });
                 $('#update_city').change(function () {
                     $("#update_area").html("<option value=''>--请选择--</option>")
                     if(this.value){
-                        House.queryArea('area', this.value);
+                        House.queryArea('update_area', this.value);
                     }
                 })
 
@@ -295,6 +393,7 @@
                         dataType: 'json',
                         success: function (res) {
                             let checkboxStr = ""
+
                             $.each(res, function (index, dict) {
                                 checkboxStr += "<lable class='checkbox-inline'>"
                                     +"<input type='checkbox' name='"+groupId+"' value='"+dict.value+"'>"
@@ -314,10 +413,13 @@
                         data: '',
                         dataType: 'json',
                         success: function (res) {
+                            console.log("111111111111" + res);
                             let options = "<option value=''>--请选择--</option>"
                             $.each(res, function (index, dict) {
-                                options += "<options value='"+dict.value+"'>"+dict.name+"</options>"
+                                options += "<option value='"+dict.value+"'>"+dict.name+"</option>"
                             })
+
+                            $('#update_' + groupId).html(options);
                             $('#update_' + groupId).html(options);
                         }
                     })
