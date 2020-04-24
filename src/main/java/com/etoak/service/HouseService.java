@@ -11,4 +11,6 @@ import com.etoak.bean.houseVo;
 public interface HouseService {
     int addHouse(House house);
     Page<houseVo> queryList(int pageNum, int pageSize, houseVo houseV,String[] rentalList);
+
+    int updateHouse(House house);
 }

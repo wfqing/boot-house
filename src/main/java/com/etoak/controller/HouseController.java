@@ -96,6 +96,11 @@ log.info("111111111111111111,{}", rentalList);
         return "/house/list";
 
     }
+    @PutMapping("/update")
+    public String uodate(House house) {
+        houseService.updateHouse(house);
+        return "redirect:/house/toList";
+    }
 
 
 }

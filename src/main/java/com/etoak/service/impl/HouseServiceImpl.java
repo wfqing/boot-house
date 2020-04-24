@@ -58,6 +58,17 @@ public class HouseServiceImpl implements HouseService{
                 pageInfo.getPages());
     }
 
+    @Override
+    public int updateHouse(House house) {
+        if(house.getCity() != null) {
+            Area area = areaMapper.queryById(house.getArea());
+            house.setAreaName(area.getName());
+        }
+
+
+        return houseMapper.updateHouse(house);
+    }
+
     private void handlerRental(houseVo houseV, String[] rentalList) {
         if(ArrayUtils.isNotEmpty(rentalList)){
             List<Map<String, Integer>> rentalMapList = new ArrayList<>();
