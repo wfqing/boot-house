@@ -69,6 +69,11 @@ public class HouseServiceImpl implements HouseService{
         return houseMapper.updateHouse(house);
     }
 
+    @Override
+    public int deleteById(int id) {
+        return houseMapper.deleteById(id);
+    }
+
     private void handlerRental(houseVo houseV, String[] rentalList) {
         if(ArrayUtils.isNotEmpty(rentalList)){
             List<Map<String, Integer>> rentalMapList = new ArrayList<>();

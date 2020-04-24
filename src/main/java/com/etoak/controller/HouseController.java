@@ -101,6 +101,11 @@ log.info("111111111111111111,{}", rentalList);
         houseService.updateHouse(house);
         return "redirect:/house/toList";
     }
+    @DeleteMapping("/{id}")
+    public String deleteHouse(@PathVariable("id") int id) {
+        houseService.deleteById(id);
+        return "redirect:/house/toList";
+    }
 
 
 }
