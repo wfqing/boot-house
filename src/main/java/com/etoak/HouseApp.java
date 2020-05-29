@@ -17,6 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //999990
 
 //p
+>>>>>>> branch 'master' of https://github.com/wfqing/boot-house.git
 public class HouseApp {
     public static void main(String[] agrs) {
         SpringApplication.run(HouseApp.class, agrs);
