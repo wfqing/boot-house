@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @MapperScan(basePackages = "com.etoak.mapper")
 
-eclipse
+//eclipse
 //idea
 
 public class HouseApp {
