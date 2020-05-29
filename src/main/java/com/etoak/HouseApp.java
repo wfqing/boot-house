@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * Created by wfqing on 2020/4/20.
  */
+
 @SpringBootApplication
 @MapperScan(basePackages = "com.etoak.mapper")
 public class HouseApp {
