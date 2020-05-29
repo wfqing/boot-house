@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan(basePackages = "com.etoak.mapper")
 
 eclipse
+//idea
 
 public class HouseApp {
     public static void main(String[] agrs) {
