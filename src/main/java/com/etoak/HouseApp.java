@@ -15,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //idea
 /////9898
 //999990
+
 public class HouseApp {
     public static void main(String[] agrs) {
         SpringApplication.run(HouseApp.class, agrs);
