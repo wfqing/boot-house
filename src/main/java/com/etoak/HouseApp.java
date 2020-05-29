@@ -9,8 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan(basePackages = "com.etoak.mapper")
-
-
 public class HouseApp {
     public static void main(String[] agrs) {
         SpringApplication.run(HouseApp.class, agrs);
