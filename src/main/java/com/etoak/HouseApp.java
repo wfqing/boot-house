@@ -10,15 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan(basePackages = "com.etoak.mapper")
-
-//eclipse
-//idea
-/////9898
-//999990
-//0000000
-////////////////////
-//p
-
+//
 public class HouseApp {
     public static void main(String[] agrs) {
         SpringApplication.run(HouseApp.class, agrs);
