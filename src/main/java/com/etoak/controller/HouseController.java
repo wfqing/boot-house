@@ -79,13 +79,33 @@ log.info("house___________rentmode   >", house.getRentMode());
 
         return "redirect:/house/toAdd";
     }
+
+
     @GetMapping(value = "/list", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public Page<houseVo> queryList(@RequestParam(required = false, defaultValue = "0") int pageNum,
                                    @RequestParam(required = false, defaultValue = "3") int pageSize,
-                                   houseVo houseV) {
-
-        return houseService.queryList(pageNum, pageSize, houseV);
+                                   houseVo houseV,
+                                   @RequestParam(value = "rentalList[]", required = false) String[] rentalList) {
+log.info("111111111111111111,{}", rentalList);
+        return houseService.queryList(pageNum, pageSize, houseV, rentalList);
 
     }
+    @GetMapping("/toList")
+    public String toList() {
+        return "/house/list";
+
+    }
+    @PutMapping("/update")
+    public String uodate(House house) {
+        houseService.updateHouse(house);
+        return "redirect:/house/toList";
+    }
+    @DeleteMapping("/{id}")
+    public String deleteHouse(@PathVariable("id") int id) {
+        houseService.deleteById(id);
+        return "redirect:/house/toList";
+    }
+
+
 }

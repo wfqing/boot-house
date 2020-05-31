@@ -12,4 +12,8 @@ public interface HouseMapper {
     int addHouse(House house);
 
     List<houseVo> queryList(houseVo houseV);
+
+    int updateHouse(House house);
+
+    int deleteById(int id);
 }

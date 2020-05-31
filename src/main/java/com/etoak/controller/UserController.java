@@ -1,0 +1,36 @@
+package com.etoak.controller;
+
+import com.etoak.bean.User;
+import com.etoak.exception.ParamException;
+import com.etoak.service.UserService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
+/**
+ * Created by wfqing on 2020/4/24.
+ */
+@Controller
+@RequestMapping("/user")
+public class UserController {
+    @Autowired
+    UserService userService;
+    @GetMapping("/toReg")
+    public String toRegPage() {
+        return "/user/reg";
+    }
+    @PostMapping("/reg")
+    public String addUser(@RequestParam String  confirmpassword, User user) {
+        if(!StringUtils.equals(confirmpassword, user.getPassword())) {
+            throw new ParamException("两次密码不一致");
+        }
+        userService.addUser(user);
+        return "redirect:/user/toReg";
+
+    }
+}
